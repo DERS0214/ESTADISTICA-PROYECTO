@@ -1,5 +1,6 @@
-getwd()
-setwd("C:/Users/Kathy/Documents/Kathy/Estadistica/Proyecto Final")
+#getwd()
+#setwd("C:/Users/Kathy/Documents/Kathy/Estadistica/Proyecto Final")
+setwd("C:/Users/Kathy/Documents/GitHub/ESTADISTICA-PROYECTO/Proyecto Final")
 
 install.packages("readx1")
 library(readxl)
@@ -21,6 +22,106 @@ library(ggplot2)
 library(gridExtra)
 library(dplyr)
 library(corrplot)
+
+Info <- data.frame(
+  Edad = c(21.00, 20.00, 22.00, 22.00, 22.00, 19.00, 20.00, 20.00, 23.00, 
+           19.00, 20.00, 21.00, 20.00, 21.00, 23.00, 18.00, 19.00, 19.00, 
+           20.00, 20.00, 21.00, 19.00, 20.00, 21.00, 20.00, 20.00, 22.00, 
+           20.00, 21.00, 20.00, 22.00, 21.00, 22.00, 19.00, 19.00, 22.00, 
+           22.00, 18.00, 20.00, 23.00, 21.00, 19.00, 20.00, 23.00, 20.00, 
+           21.00, 22.00, 22.00, 23.00, 26.00),
+  Foráneo = c("No", "No", "No", "No", "No", "No", "No", "No", "No", "No", 
+              "No", "No", "No", "No", "No", "No", "Sí", "Sí", "No", "No", 
+              "No", "No", "No", "No", "No", "No", "No", "No", "No", "No", 
+              "No", "No", "No", "Sí", "Sí", "No", "No", "No", "No", "No", 
+              "No", "No", "No", "No", "No", "No", "No", "Sí", "No", "Sí"),
+  Laboral = c("Desempleado", "Desempleado", "Desempleado", "Desempleado", 
+              "Desempleado", "Desempleado", "Desempleado", "Desempleado", 
+              "Desempleado", "Empleado", "Desempleado", "Desempleado", 
+              "Desempleado", "Desempleado", "Desempleado", "Desempleado", 
+              "Desempleado", "Desempleado", "Desempleado", "Desempleado", 
+              "Desempleado", "Desempleado", "Desempleado", "Desempleado", 
+              "Empleado", "Desempleado", "Desempleado", "Empleado", 
+              "Desempleado", "Desempleado", "Desempleado", "Desempleado", 
+              "Desempleado", "Desempleado", "Desempleado", "Empleado", 
+              "Empleado", "Desempleado", "Desempleado", "Desempleado", 
+              "Desempleado", "Desempleado", "Desempleado", "Empleado", 
+              "Desempleado", "Empleado", "Desempleado", "Empleado", 
+              "Empleado", "Desempleado"),
+  Economía = c("Mala", "Regular", "Buena", "Regular", "Regular", 
+               "Regular", "Buena", "Buena", "Regular", "Regular", 
+               "Mala", "Mala", "Regular", "Buena", "Buena", 
+               "Buena", "Mala", "Regular", "Buena", "Regular", 
+               "Regular", "Buena", "Regular", "Mala", "Mala", 
+               "Regular", "Regular", "Regular", "Excelente", 
+               "Regular", "Regular", "Regular", "Buena", 
+               "Mala", "Regular", "Regular", "Regular", 
+               "Regular", "Buena", "Regular", "Regular", 
+               "Buena", "Regular", "Buena", "Regular", 
+               "Regular", "Buena", "Regular", "Regular", 
+               "Mala"),
+  Estrés = c(95.00, 70.00, 90.00, 80.00, 70.00, 45.00, 45.00, 69.00, 
+             95.00, 85.00, 80.00, 80.00, 55.00, 40.00, 60.00, 75.00, 
+             95.00, 75.00, 20.00, 50.00, 70.00, 40.00, 35.00, 90.00, 
+             95.00, 25.00, 40.00, 15.00, 35.00, 40.00, 85.00, 50.00, 
+             25.00, 98.00, 80.00, 80.00, 70.00, 70.00, 65.00, 90.00, 
+             85.00, 65.00, 55.00, 60.00, 50.00, 60.00, 70.00, 85.00, 
+             50.00, 85.00),
+  Gasto = c(20.00, 20.00, 50.00, 20.00, 10.00, 0.00, 15.00, 15.00, 
+            6.00, 50.00, 20.00, 10.00, 20.00, 5.00, 5.00, 40.00, 
+            20.00, 15.00, 15.00, 20.00, 5.00, 15.00, 8.00, 15.00, 
+            20.00, 60.00, 10.00, 30.00, 30.00, 12.00, 20.00, 25.00, 
+            10.00, 40.00, 20.00, 10.00, 25.00, 25.00, 20.00, 40.00, 
+            20.00, 5.00, 20.00, 10.00, 15.00, 100.00, 15.00, 40.00, 
+            0.00, 60.00),
+  Deuda = c(1000.00, 500.00, 1000.00, 700.00, 300.00, 500.00, 600.00, 
+            550.00, 870.00, 350.00, 600.00, 200.00, 40.00, 600.00, 
+            100.00, 1000.00, 0.00, 400.00, 30.00, 300.00, 500.00, 
+            300.00, 850.00, 200.00, 300.00, 400.00, 200.00, 300.00, 
+            400.00, 400.00, 300.00, 20.00, 500.00, 200.00, 90.00, 
+            0.00, 40.00, 0.00, 0.00, 700.00, 40.00, 1500.00, 500.00, 
+            500.00, 300.00, 150.00, 400.00, 300.00, 700.00, 2500.00),
+  Ingreso = c(500.00, 1300.00, 2500.00, 1000.00, 1000.00, 600.00, 1000.00, 
+              1000.00, 900.00, 1600.00, 1300.00, 700.00, 1200.00, 1000.00, 
+              600.00, 1400.00, 500.00, 2000.00, 1000.00, 900.00, 500.00, 
+              900.00, 900.00, 500.00, 650.00, 900.00, 600.00, 800.00, 
+              560.00, 700.00, 500.00, 250.00, 900.00, 400.00, 120.00, 
+              700.00, 130.00, 800.00, 500.00, 700.00, 1500.00, 2000.00, 
+              500.00, 800.00, 800.00, 950.00, 800.00, 350.00, 2000.00, 
+              3000.00),
+  Horas = c(16.00, 12.00, 15.00, 14.00, 10.00, 9.00, 8.00, 11.00, 
+            12.00, 14.00, 13.00, 10.00, 8.00, 10.00, 14.00, 16.00, 
+            13.00, 7.00, 9.00, 10.00, 8.00, 7.00, 15.00, 14.00, 
+            7.00, 8.00, 5.00, 8.00, 8.00, 15.00, 10.00, 7.00, 
+            17.00, 13.00, 12.00, 11.00, 10.00, 9.00, 15.00, 15.00, 
+            13.00, 10.00, 11.00, 16.00, 12.00, 12.00, 14.00, 15.00, 
+            15.00, 16.00),
+  Promedio = c(7.00, 7.00, 6.00, 6.50, 8.00, 8.50, 8.50, 9.00, 
+               6.00, 7.00, 7.00, 7.50, 8.00, 8.00, 8.00, 6.00, 
+               6.50, 6.50, 7.00, 7.80, 8.00, 8.50, 8.70, 6.00, 
+               6.50, 8.00, 8.00, 9.00, 9.00, 9.00, 6.50, 7.50, 
+               8.00, 6.00, 7.00, 7.20, 7.28, 6.00, 7.50, 6.50, 
+               7.00, 7.00, 8.00, 8.50, 7.00, 9.00, 7.80, 7.00, 
+               8.00, 6.00),
+  Materias = c(7.00, 5.00, 5.00, 5.00, 4.00, 4.00, 5.00, 4.00, 
+               7.00, 5.00, 6.00, 8.00, 4.00, 4.00, 5.00, 5.00, 
+               5.00, 5.00, 3.00, 5.00, 4.00, 3.00, 3.00, 6.00, 
+               6.00, 4.00, 3.00, 3.00, 5.00, 3.00, 6.00, 4.00, 
+               4.00, 6.00, 5.00, 6.00, 4.00, 4.00, 4.00, 5.00, 
+               4.00, 5.00, 4.00, 3.00, 5.00, 8.00, 3.00, 5.00, 
+               7.00, 6.00),
+  Dificultad = c("Algo fácil", "Algo difícil", "Algo difícil", "Algo difícil", 
+                "Normal", "Normal", "Normal", "Algo fácil", "Algo difícil", 
+                "Normal", "Algo difícil", "Normal", "Normal", "Normal", 
+                "Algo fácil", "Algo difícil", "Difícil", "Difícil", "Algo difícil", 
+                "Normal", "Normal", "Algo fácil", "Algo fácil", "Difícil", 
+                "Difícil", "Normal", "Algo fácil", "Difícil", "Normal", 
+                "Normal", "Algo difícil", "Normal", "Algo fácil", "Algo difícil", 
+                "Algo difícil", "Difícil", "Algo difícil", "Normal", "Algo difícil", 
+                "Algo difícil", "Algo difícil", "Normal", "Algo difícil", 
+                "Algo fácil", "Algo difícil", "Algo fácil", "Algo difícil", 
+                "Algo difícil", "Normal", "Algo difícil")
+)               
 
 # ESTADÍSTICA DESCRIPTIVA UNIVARIANTE
 # VARIABLES CUANTITATIVAS
@@ -730,4 +831,48 @@ boxplot(Promedio ~ Dificultad, data=datos, main="D. de Cajas de Promedio Obtenid
 
 # ESTADÍSTICA INFERENCIAL
 
-# INTERVALOS DE CONFIANZA
+### INTERVALOS DE CONFIANZA
+
+Estres <- Info[["Estrés"]]
+Promedio <- Info[["Promedio"]]
+Materias <- Info[["Materias"]]
+
+muestra <- length(Estres)
+alpha <- 0.05
+zalpha <- abs(qnorm(alpha/2))
+
+# INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE ESTRÉS CON UN 0.05% DE SIGNIFICANCIA
+
+mediaE <- mean(Estres)
+sdE <- sd(Estres)
+
+linfEstres <- mediaE - ((sdE/sqrt(muestra))*zalpha)
+lsupEstres <- mediaE + ((sdE/sqrt(muestra))*zalpha)
+
+print(paste0("[",linfEstres,", ",lsupEstres,"]"))
+
+# INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE PROMEDIO CON UN 0.05% DE SIGNIFICANCIA
+
+mediaP <- mean(Promedio)
+sdP <- sd(Promedio)
+
+linfPromedio <- mediaP - ((sdP/sqrt(muestra))*zalpha)
+lsupPromedio <- mediaP + ((sdP/sqrt(muestra))*zalpha)
+
+print(paste0("[",linfPromedio,", ",lsupPromedio,"]"))
+
+# INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE MATERIAS CON UN 0.05% DE SIGNIFICANCIA
+
+mediaM <- mean(Materias)
+sdM <- sd(Materias)
+
+linfMaterias <- mediaM - ((sdM/sqrt(muestra))*zalpha)
+lsupMaterias <- mediaM + ((sdM/sqrt(muestra))*zalpha)
+
+print(paste0("[",linfMaterias,", ",lsupMaterias,"]"))
+
+###
+
+### PRUEBAS DE HIPÓTESIS
+
+# PR
