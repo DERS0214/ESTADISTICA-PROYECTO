@@ -978,7 +978,7 @@ sdM <- sd(Materias)
 z_statM = (xbarM - miu0M)/(sdM/sqrt(muestra))
 
 # Gráfica
-x <- seq(-12, 12, length=1000)
+x <- seq(-5, 5, length=1000)
 y <- dnorm(x)
 
 #Tabla de datos
@@ -1017,8 +1017,10 @@ Materias <- Info[["Materias"]]
 # VARIABLE ESTRÉS
 
 ksE <- ks.test(Estres, "pnorm", mean = mean(Estres), sd = sd(Estres))
+bondadAjusE <- shapiro.test(Estres)
 
 print(ksE)
+print(bondadAjusE)
 
 df <- data.frame(Estres = Estres)
 
@@ -1034,8 +1036,10 @@ ggplot(df, aes(x = Estres)) +
 # VARIABLE PROMEDIO
 
 ksP <- ks.test(Promedio, "pnorm", mean = mean(Promedio), sd = sd(Promedio))
+bondadAjusP <- shapiro.test(Promedio)
 
 print(ksP)
+print(bondadAjusP)
 
 df <- data.frame(Promedio = Promedio)
 
@@ -1051,8 +1055,10 @@ ggplot(df, aes(x = Promedio)) +
 # VARIABLE MATERIAS
 
 ksM <- ks.test(Materias, "pnorm", mean = mean(Materias), sd = sd(Materias))
+bondadAjusM <- shapiro.test(Materias)
 
 print(ksM)
+print(bondadAjusM)
 
 df <- data.frame(Materias = Materias)
 
@@ -1064,3 +1070,9 @@ ggplot(df, aes(x = Materias)) +
        x = "Materias",
        y = "Densidad") +
   theme_minimal()
+
+###
+
+# REGRESIÓN LINEAL
+
+
