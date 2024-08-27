@@ -1010,17 +1010,15 @@ print(ji)
 
 # PRUEBA DE KOLMOGOROV-SMIRNOV PARA SABER SI NUESTRAS VARIABLES SIGUEN UNA DISTRIBUCIÓN NORMAL
 
-Estres <- Info[["Estrés"]]
-Promedio <- Info[["Promedio"]]
-Materias <- Info[["Materias"]]
+Estres <- Info[["Estrés"]] + rnorm(Info[["Estrés"]], sd = 1e-6)
+Promedio <- Info[["Promedio"]] + rnorm(Info[["Promedio"]], sd = 1e-6)
+Materias <- Info[["Materias"]] + rnorm(Info[["Materias"]], sd = 1e-6)
 
 # VARIABLE ESTRÉS
 
 ksE <- ks.test(Estres, "pnorm", mean = mean(Estres), sd = sd(Estres))
-bondadAjusE <- shapiro.test(Estres)
 
 print(ksE)
-print(bondadAjusE)
 
 df <- data.frame(Estres = Estres)
 
@@ -1036,10 +1034,8 @@ ggplot(df, aes(x = Estres)) +
 # VARIABLE PROMEDIO
 
 ksP <- ks.test(Promedio, "pnorm", mean = mean(Promedio), sd = sd(Promedio))
-bondadAjusP <- shapiro.test(Promedio)
 
 print(ksP)
-print(bondadAjusP)
 
 df <- data.frame(Promedio = Promedio)
 
@@ -1055,10 +1051,8 @@ ggplot(df, aes(x = Promedio)) +
 # VARIABLE MATERIAS
 
 ksM <- ks.test(Materias, "pnorm", mean = mean(Materias), sd = sd(Materias))
-bondadAjusM <- shapiro.test(Materias)
 
 print(ksM)
-print(bondadAjusM)
 
 df <- data.frame(Materias = Materias)
 
@@ -1075,4 +1069,11 @@ ggplot(df, aes(x = Materias)) +
 
 # REGRESIÓN LINEAL
 
+modeloEstProm <- lm(Estrés ~ Promedio, data = Info)
 
+summary(modeloEstProm)
+
+ggplot(Info, aes(x=Estrés, y=Promedio)) + 
+  geom_point() +
+  geom_smooth(method='lm', formula=y~x, se=FALSE, col='dodgerblue1') +
+  theme_light()
