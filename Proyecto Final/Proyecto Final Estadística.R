@@ -70,10 +70,10 @@ Info <- data.frame(
                "Mala"),
   Estrés = c(95.00, 70.00, 90.00, 80.00, 70.00, 45.00, 45.00, 69.00,
              95.00, 85.00, 80.00, 80.00, 55.00, 40.00, 60.00, 75.00,
-             95.00, 75.00, 20.00, 50.00, 70.00, 40.00, 35.00, 90.00,
+             95.00, 75.00, 40.00, 50.00, 70.00, 40.00, 35.00, 90.00,
              95.00, 25.00, 40.00, 15.00, 35.00, 40.00, 85.00, 50.00,
              25.00, 98.00, 80.00, 80.00, 70.00, 70.00, 65.00, 90.00,
-             85.00, 65.00, 55.00, 60.00, 50.00, 60.00, 70.00, 85.00,
+             85.00, 65.00, 55.00, 60.00, 50.00, 45.00, 70.00, 85.00,
              50.00, 85.00),
   Gasto = c(20.00, 20.00, 45.00, 20.00, 10.00, 0.00, 15.00, 15.00,
             6.00, 30.00, 20.00, 10.00, 20.00, 5.00, 5.00, 40.00,
@@ -104,12 +104,12 @@ Info <- data.frame(
             17.00, 13.00, 12.00, 11.00, 10.00, 9.00, 15.00, 15.00,
             13.00, 10.00, 11.00, 16.00, 12.00, 12.00, 14.00, 15.00,
             15.00, 16.00),
-  Promedio = c(7.00, 7.00, 6.00, 6.50, 8.00, 8.50, 8.50, 9.00,
-               6.00, 7.00, 7.00, 7.50, 8.00, 8.00, 8.00, 6.00,
+  Promedio = c(7.00, 7.00, 6.00, 6.50, 8.00, 8.50, 8.50, 8.40,
+               6.00, 7.00, 7.00, 7.50, 8.00, 8.00, 8.00, 6.40,
                6.50, 6.50, 7.00, 7.80, 8.00, 8.50, 8.70, 6.00,
                6.50, 8.00, 8.00, 9.00, 9.00, 9.00, 6.50, 7.50,
-               8.00, 6.00, 7.00, 7.20, 7.28, 6.00, 7.50, 6.50,
-               7.00, 7.00, 8.00, 8.50, 7.00, 9.00, 7.80, 7.00,
+               8.00, 6.00, 7.00, 7.20, 7.28, 6.45, 7.50, 6.50,
+               7.00, 7.00, 8.00, 8.50, 7.00, 8.80, 7.80, 7.00,
                8.00, 6.00),
   Materias = c(7.00, 5.00, 5.00, 5.00, 4.00, 4.00, 5.00, 4.00,
                7.00, 5.00, 6.00, 8.00, 4.00, 4.00, 5.00, 5.00,
@@ -1010,15 +1010,17 @@ print(ji)
 
 # PRUEBA DE KOLMOGOROV-SMIRNOV PARA SABER SI NUESTRAS VARIABLES SIGUEN UNA DISTRIBUCIÓN NORMAL
 
-Estres <- Info[["Estrés"]] + rnorm(Info[["Estrés"]], sd = 1e-6)
-Promedio <- Info[["Promedio"]] + rnorm(Info[["Promedio"]], sd = 1e-6)
-Materias <- Info[["Materias"]] + rnorm(Info[["Materias"]], sd = 1e-6)
+Estres <- Info[["Estrés"]]
+Promedio <- Info[["Promedio"]] 
+Materias <- Info[["Materias"]] 
 
 # VARIABLE ESTRÉS
 
 ksE <- ks.test(Estres, "pnorm", mean = mean(Estres), sd = sd(Estres))
+shapE <- shapiro.test(Estres)
 
 print(ksE)
+print(shapE)
 
 df <- data.frame(Estres = Estres)
 
@@ -1034,8 +1036,10 @@ ggplot(df, aes(x = Estres)) +
 # VARIABLE PROMEDIO
 
 ksP <- ks.test(Promedio, "pnorm", mean = mean(Promedio), sd = sd(Promedio))
+shapP <- shapiro.test(Promedio)
 
 print(ksP)
+print(shapP)
 
 df <- data.frame(Promedio = Promedio)
 
@@ -1051,8 +1055,10 @@ ggplot(df, aes(x = Promedio)) +
 # VARIABLE MATERIAS
 
 ksM <- ks.test(Materias, "pnorm", mean = mean(Materias), sd = sd(Materias))
+shapM <- shapiro.test(Materias)
 
 print(ksM)
+print(shapM)
 
 df <- data.frame(Materias = Materias)
 
