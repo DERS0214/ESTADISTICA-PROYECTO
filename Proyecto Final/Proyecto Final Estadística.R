@@ -946,9 +946,9 @@ z_critical <- abs(qnorm(alpha)) # Valor crítico para todas las hipótesis, con 
 
 # ---- MEDIA DE LA VARIABLE ESTRÉS
 
-#Intentamos probar que la media del estres es mayor o igual a 55, asignamos h0 y ha
-# h0 = miu < 55 (hipótesis nula: miu menor a 55)
-# ha = miu >= 55 (hipótesis alternativa: miu mayor o igual a 55)
+#Intentamos probar que la media del estres es mayor a 55, asignamos h0 y ha
+# h0 = miu <= 55 (hipótesis nula: miu menor a 55)
+# ha = miu > 55 (hipótesis alternativa: miu mayor o igual a 55)
 
 miu0E <- 55
 xbarE <- mean(Estres) #media
@@ -1004,9 +1004,9 @@ ggplot(datos, aes(x, y)) +
 
 # ---- MEDIA DE LA VARIABLE MATERIAS
 
-#Queremos probar que la media de materias es mayor o igual a 4, asignamos h0 y ha
-# h0 = miu < 4 (hipótesis nula: miu menor a 4)
-# ha = miu >= 4 (hipótesis alternativa: miu mayor o igual a 4)
+#Queremos probar que la media de materias es mayor a 3, asignamos h0 y ha
+# h0 = miu <= 3 (hipótesis nula: miu menor o igual a 3)
+# ha = miu > 3 (hipótesis alternativa: miu mayor a 3)
 
 miu0M <- 3
 xbarM <- mean(Materias)
