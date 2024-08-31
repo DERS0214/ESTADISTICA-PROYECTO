@@ -132,8 +132,16 @@ Info <- data.frame(
                 "Algo difícil", "Normal", "Algo difícil")
 )
 
+#####################################################################################
+
 # ESTADÍSTICA DESCRIPTIVA UNIVARIANTE
 # VARIABLES CUANTITATIVAS
+
+#Se calcula media, mediana, desviacion, q1, q3, curtosis, sesgo, minimo, maximo para 
+#cada dato estadistico cuantitativo de nuestra encuenta para despues hacer una pequeña 
+#tabla con estos datos, que se imprimirá por consola y por el "Viewer". Luego haremos una 
+#tabla de frecuencia para datos agrupados, terminando con graficos con un histograma y un 
+#diagrama de cajas, que creemos que son los que mejor describen las variables.
 
 #### VARIABLE EDAD
 
@@ -697,9 +705,10 @@ boxplot(Materias,
         col = "white",             
         border = "black")     
 
-####
+##################################################################################################################
 
 # VARIBLES CUALITATIVAS
+#Al ser variables cuantitativas, creamos un Plot de diagrama de barras de cada variable Cualitativa para mejor lectura
 
 #### VARIABLE ES PERSONA FORÁNEA
 
@@ -753,6 +762,7 @@ barplot(f_absoluta,
         col = "gold",
         border = "black")
 
+
 #######################################################################################################################
 #######################################################################################################################
 
@@ -762,6 +772,7 @@ barplot(f_absoluta,
 
 #### MATRIZ DE COVARIANZA & CORRELACIÓN
 
+#Juntamos todos los datos cuantitativos en un DataFrame para hacer
 datos <- data.frame(
   Edad = Edad,
   Estres = Estres,
@@ -777,18 +788,23 @@ datos <- data.frame(
 
 matriz_cov <- cov(datos)
 
+#Se imprime la matriz de covarianza
 print(matriz_cov)
+
 
 # MATRIZ DE CORRELACIÓN
 
 matriz_cor <- cor(datos)
 
+#Se imprime la matriz de correlación
 print(matriz_cor)
 
 # MATRIZ GRÁFICA DE CORRELACIÓN
 
+#Plot para la matriz de correlación
 corrplot(matriz_cor, method = "circle", addCoef.col = "black",)
 
+#Matriz correlación con gráficos de disperción
 pairs(datos)
 
 ####
@@ -809,21 +825,13 @@ datos <- data.frame(
   Deuda <- Info[["Deuda"]],
   Promedio <- Info[["Promedio"]]
 )
-
+#Realizamos gráficos de barras entre una variable cuantitativa y otra cualitativa que nos
+#parezcan de mayor interes para nuestra investigación
 boxplot(Estres ~ Foraneo, data=datos, main="Diagrama de Cajas de Estrés por Condición de Foráneo",
         xlab="Es Foráneo", ylab="Estrés", col=c("skyblue", "lightgreen"))
 
-boxplot(Gasto ~ Foraneo, data=datos, main="Diagrama de Cajas de Gasto Semanal Universitario por Condición de Foráneo",
-        xlab="Es Foráneo", ylab="Gasto Semanal Universitario", col=c("skyblue", "lightgreen"))
-
 boxplot(Estres ~ Laboral, data=datos, main="Diagrama de Cajas de Estrés por Situación Laboral",
         xlab="Situación Laboral", ylab="Estrés", col=c("skyblue", "lightgreen"))
-
-boxplot(Horas ~ Laboral, data=datos, main="Diagrama de Cajas de Horas Diarias de Estudio por Situación Laboral",
-        xlab="Situación Laboral", ylab="Horas Diarias de Estudio", col=c("skyblue", "lightgreen"))
-
-boxplot(Gasto ~ Laboral, data=datos, main="Diagrama de Cajas de Gasto Semanal Universitario por Situación Laboral",
-        xlab="Situación Laboral", ylab="Gasto Semanal Universitario", col=c("skyblue", "lightgreen"))
 
 boxplot(Gasto ~ Economia, data=datos, main="Diagrama de Cajas de Gasto Semanal Universitario por Calidad de Economía",
         xlab="Calidad de Economía", ylab="Gasto Semanal Universitario", col=c("skyblue", "lightgreen"))
@@ -834,25 +842,28 @@ boxplot(Estres ~ Economia, data=datos, main="Diagrama de Cajas de Estrés por Ca
 boxplot(Estres ~ Dificultad, data=datos, main="Diagrama de Cajas de Estrés por Dificultad para Equilibrar la Vida Personal y la Académica",
         xlab="Dificultad para Equilibrar la Vida Personal y la Académica", ylab="Estrés", col=c("skyblue", "lightgreen"))
 
-boxplot(Gasto ~ Dificultad, data=datos, main="D. de Cajas de Gasto Semanal Universitario por Dificultad para Equilibrar Vida Personal y Académica",
-        xlab="Dificultad para Equilibrar la Vida Personal y la Académica", ylab="Gasto Semanal Universitario", col=c("skyblue", "lightgreen"))
-
 boxplot(Promedio ~ Dificultad, data=datos, main="D. de Cajas de Promedio Obtenido en el Último Término por Dificultad para Equilibrar Vida Personal y Académica",
         xlab="Dificultad para Equilibrar la Vida Personal y la Académica", ylab="Promedio Obtenido en el Último Término", col=c("skyblue", "lightgreen"))
 
-####
+###########################################################################################################################
 
 # ESTADÍSTICA INFERENCIAL
 
 ### INTERVALOS DE CONFIANZA
 
+#Seleccionamos las variables de más interes para nuestra investigación 
 Estres <- Info[["Estrés"]]
 Promedio <- Info[["Promedio"]]
 Materias <- Info[["Materias"]]
 
+#Sacamos el tamaño de la muestra, el alpha y el Zalpha
 muestra <- length(Estres)
 alpha <- 0.05
 zalpha <- abs(qnorm(alpha/2))
+
+#Realizaremos intervalos de confianza para las 3 variables seleccionadas, tambien 
+#verificamos que la desviación estandar no sea mayor al 10% en cada variable
+
 
 # INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE ESTRÉS CON UN 0.05% DE SIGNIFICANCIA
 
@@ -869,6 +880,7 @@ print(paste0("Intervalo de confianza para Estrés: [",linfEstres,", ",lsupEstres
 print(paste0("Error estándar de Estrés : ", errorE))
 print(paste("10% de la media de Estrés: ",compE))
 print("Comparando con el 10% de la media, el error estándar al ser menor podemos decir que tiene un error aceptable.")
+
 # INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE PROMEDIO CON UN 0.05% DE SIGNIFICANCIA
 
 mediaP <- mean(Promedio)
@@ -901,7 +913,7 @@ print(paste0("Error estándar de Materias : ", errorM))
 print(paste("10% de la media de Estrés: ",compM))
 print("Comparando con el 10% de la media, el error estándar al ser menor podemos decir que tiene un error aceptable.")
 
-###
+#################################################################################################################
 
 ### PRUEBAS DE HIPÓTESIS
 
