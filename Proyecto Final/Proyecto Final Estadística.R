@@ -16,6 +16,7 @@
 # install.packages("corrplot")
 # install.packages("stats")
 
+# Librerías necesarias para el código.
 library(e1071)
 library(knitr)
 library(kableExtra)
@@ -136,8 +137,10 @@ Info <- data.frame(
 
 #### VARIABLE EDAD
 
+#Asignar a la variable Edad la columna Edad del DataFrame
 Edad <- Info[["Edad"]]
 
+#Se calcula 
 media <- mean(Edad)
 mediana <- median(Edad)
 desviacion <- sd(Edad)
@@ -750,7 +753,9 @@ barplot(f_absoluta,
         col = "gold",
         border = "black")
 
-####
+#######################################################################################################################
+#######################################################################################################################
+
 
 # ESTADÍSTICA DESCRIPTIVA BIVARIANTE O MULTIVARIANTE
 # VARIABLES CUANTITATIVAS
