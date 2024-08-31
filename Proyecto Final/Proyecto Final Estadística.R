@@ -17,120 +17,120 @@
 # install.packages("stats")
 
 # Librerías necesarias para el código.
-library(e1071)
-library(knitr)
-library(kableExtra)
-library(ggplot2)
-library(gridExtra)
-library(dplyr)
-library(corrplot)
-library(stats)
-
-# !!!!!!!!!!!!!!!!!!!! ADVERTENCIA !!!!!!!!!!!!!!!!!!!!!
-# Si no se puede acceder al excel para acceder a él como un data set por problemas con la ruta relativa (Por alguna razón
-# a mi y mi compañero nos daba problemas con la ruta y teníamos que settear la ruta manualmente para que funcione), puede
-# usar el data frame de abajo y funcionará de igual manera. Son los mismos datos que están en el excel de esta carpeta.
-# Puede descomentarlos seleccionando todo el data frame y pulsando la combinación de teclas: Ctrl + Shift + C.
-
-Info <- data.frame(
-  Edad = c(21.00, 20.00, 22.00, 22.00, 22.00, 19.00, 20.00, 20.00, 23.00,
-           19.00, 20.00, 21.00, 20.00, 21.00, 23.00, 18.00, 19.00, 19.00,
-           20.00, 20.00, 21.00, 19.00, 20.00, 21.00, 20.00, 20.00, 22.00,
-           20.00, 21.00, 20.00, 22.00, 21.00, 22.00, 19.00, 19.00, 22.00,
-           22.00, 18.00, 20.00, 23.00, 21.00, 19.00, 20.00, 23.00, 20.00,
-           21.00, 22.00, 22.00, 23.00, 26.00),
-  Foráneo = c("No", "No", "No", "No", "No", "No", "No", "No", "No", "No",
-              "No", "No", "No", "No", "No", "No", "Sí", "Sí", "No", "No",
-              "No", "No", "No", "No", "No", "No", "No", "No", "No", "No",
-              "No", "No", "No", "Sí", "Sí", "No", "No", "No", "No", "No",
-              "No", "No", "No", "No", "No", "No", "No", "Sí", "No", "Sí"),
-  Laboral = c("Desempleado", "Desempleado", "Desempleado", "Desempleado",
-              "Desempleado", "Desempleado", "Desempleado", "Desempleado",
-              "Desempleado", "Empleado", "Desempleado", "Desempleado",
-              "Desempleado", "Desempleado", "Desempleado", "Desempleado",
-              "Desempleado", "Desempleado", "Desempleado", "Desempleado",
-              "Desempleado", "Desempleado", "Desempleado", "Desempleado",
-              "Empleado", "Desempleado", "Desempleado", "Empleado",
-              "Desempleado", "Desempleado", "Desempleado", "Desempleado",
-              "Desempleado", "Desempleado", "Desempleado", "Empleado",
-              "Empleado", "Desempleado", "Desempleado", "Desempleado",
-              "Desempleado", "Desempleado", "Desempleado", "Empleado",
-              "Desempleado", "Empleado", "Desempleado", "Empleado",
-              "Empleado", "Desempleado"),
-  Economía = c("Mala", "Regular", "Buena", "Regular", "Regular",
-               "Regular", "Buena", "Buena", "Regular", "Regular",
-               "Mala", "Mala", "Regular", "Buena", "Buena",
-               "Buena", "Mala", "Regular", "Buena", "Regular",
-               "Regular", "Buena", "Regular", "Mala", "Mala",
-               "Regular", "Regular", "Regular", "Buena",
-               "Regular", "Regular", "Regular", "Buena",
-               "Mala", "Regular", "Regular", "Regular",
-               "Regular", "Buena", "Regular", "Regular",
-               "Buena", "Regular", "Buena", "Regular",
-               "Regular", "Buena", "Regular", "Regular",
-               "Mala"),
-  Estrés = c(95.00, 70.00, 90.00, 80.00, 70.00, 45.00, 45.00, 69.00,
-             95.00, 85.00, 80.00, 80.00, 55.00, 40.00, 60.00, 75.00,
-             95.00, 75.00, 40.00, 50.00, 70.00, 40.00, 35.00, 90.00,
-             95.00, 25.00, 40.00, 15.00, 35.00, 40.00, 85.00, 50.00,
-             25.00, 98.00, 80.00, 80.00, 70.00, 70.00, 65.00, 90.00,
-             85.00, 65.00, 55.00, 60.00, 50.00, 45.00, 70.00, 85.00,
-             50.00, 85.00),
-  Gasto = c(20.00, 20.00, 45.00, 20.00, 10.00, 0.00, 15.00, 15.00,
-            6.00, 30.00, 20.00, 10.00, 20.00, 5.00, 5.00, 40.00,
-            20.00, 15.00, 15.00, 20.00, 5.00, 15.00, 8.00, 15.00,
-            20.00, 45.00, 10.00, 30.00, 30.00, 12.00, 20.00, 25.00,
-            10.00, 40.00, 20.00, 10.00, 25.00, 25.00, 20.00, 40.00,
-            20.00, 5.00, 20.00, 10.00, 15.00, 25.00, 15.00, 40.00,
-            0.00, 30.00),
-  Deuda = c(1000.00, 500.00, 1000.00, 700.00, 300.00, 500.00, 600.00,
-            550.00, 870.00, 350.00, 600.00, 200.00, 40.00, 600.00,
-            100.00, 1000.00, 0.00, 400.00, 30.00, 300.00, 500.00,
-            300.00, 850.00, 200.00, 300.00, 400.00, 200.00, 300.00,
-            400.00, 400.00, 300.00, 20.00, 500.00, 200.00, 90.00,
-            0.00, 40.00, 0.00, 0.00, 700.00, 40.00, 1500.00, 500.00,
-            500.00, 300.00, 150.00, 400.00, 300.00, 700.00, 2500.00),
-  Ingreso = c(500.00, 1300.00, 2500.00, 1000.00, 1000.00, 600.00, 1000.00,
-              1000.00, 900.00, 1600.00, 1300.00, 700.00, 1200.00, 1000.00,
-              600.00, 1400.00, 500.00, 2000.00, 1000.00, 900.00, 500.00,
-              900.00, 900.00, 500.00, 650.00, 900.00, 600.00, 800.00,
-              560.00, 700.00, 500.00, 250.00, 900.00, 400.00, 120.00,
-              700.00, 130.00, 800.00, 500.00, 700.00, 1500.00, 2000.00,
-              500.00, 800.00, 800.00, 950.00, 800.00, 350.00, 2000.00,
-              3000.00),
-  Horas = c(16.00, 12.00, 15.00, 14.00, 10.00, 9.00, 8.00, 11.00,
-            12.00, 14.00, 13.00, 10.00, 8.00, 10.00, 14.00, 16.00,
-            13.00, 7.00, 9.00, 10.00, 8.00, 7.00, 15.00, 14.00,
-            7.00, 8.00, 5.00, 8.00, 8.00, 15.00, 10.00, 7.00,
-            17.00, 13.00, 12.00, 11.00, 10.00, 9.00, 15.00, 15.00,
-            13.00, 10.00, 11.00, 16.00, 12.00, 12.00, 14.00, 15.00,
-            15.00, 16.00),
-  Promedio = c(7.00, 7.00, 6.00, 6.50, 8.00, 8.50, 8.50, 8.40,
-               6.00, 7.00, 7.00, 7.50, 8.00, 8.00, 8.00, 6.40,
-               6.50, 6.50, 7.00, 7.80, 8.00, 8.50, 8.70, 6.00,
-               6.50, 8.00, 8.00, 9.00, 9.00, 9.00, 6.50, 7.50,
-               8.00, 6.00, 7.00, 7.20, 7.28, 6.45, 7.50, 6.50,
-               7.00, 7.00, 8.00, 8.50, 7.00, 8.80, 7.80, 7.00,
-               8.00, 6.00),
-  Materias = c(7.00, 5.00, 5.00, 5.00, 4.00, 4.00, 5.00, 4.00,
-               7.00, 5.00, 6.00, 8.00, 4.00, 4.00, 5.00, 5.00,
-               5.00, 5.00, 3.00, 5.00, 4.00, 3.00, 3.00, 6.00,
-               6.00, 4.00, 3.00, 3.00, 5.00, 3.00, 6.00, 4.00,
-               4.00, 6.00, 5.00, 6.00, 4.00, 4.00, 4.00, 5.00,
-               4.00, 5.00, 4.00, 3.00, 5.00, 8.00, 3.00, 5.00,
-               7.00, 6.00),
-  Dificultad = c("Algo fácil", "Algo difícil", "Algo difícil", "Algo difícil",
-                "Normal", "Normal", "Normal", "Algo fácil", "Algo difícil",
-                "Normal", "Algo difícil", "Normal", "Normal", "Normal",
-                "Algo fácil", "Algo difícil", "Difícil", "Difícil", "Algo difícil",
-                "Normal", "Normal", "Algo fácil", "Algo fácil", "Difícil",
-                "Difícil", "Normal", "Algo fácil", "Difícil", "Normal",
-                "Normal", "Algo difícil", "Normal", "Algo fácil", "Algo difícil",
-                "Algo difícil", "Difícil", "Algo difícil", "Normal", "Algo difícil",
-                "Algo difícil", "Algo difícil", "Normal", "Algo difícil",
-                "Algo fácil", "Algo difícil", "Algo fácil", "Algo difícil",
-                "Algo difícil", "Normal", "Algo difícil")
-)
+  library(e1071)
+  library(knitr)
+  library(kableExtra)
+  library(ggplot2)
+  library(gridExtra)
+  library(dplyr)
+  library(corrplot)
+  library(stats)
+  
+  # !!!!!!!!!!!!!!!!!!!! ADVERTENCIA !!!!!!!!!!!!!!!!!!!!!
+  # Si no se puede acceder al excel para acceder a él como un data set por problemas con la ruta relativa (Por alguna razón
+  # a mi y mi compañero nos daba problemas con la ruta y teníamos que settear la ruta manualmente para que funcione), puede
+  # usar el data frame de abajo y funcionará de igual manera. Son los mismos datos que están en el excel de esta carpeta.
+  # Puede descomentarlos seleccionando todo el data frame y pulsando la combinación de teclas: Ctrl + Shift + C.
+  
+  Info <- data.frame(
+    Edad = c(21.00, 20.00, 22.00, 22.00, 22.00, 19.00, 20.00, 20.00, 23.00,
+             19.00, 20.00, 21.00, 20.00, 21.00, 23.00, 18.00, 19.00, 19.00,
+             20.00, 20.00, 21.00, 19.00, 20.00, 21.00, 20.00, 20.00, 22.00,
+             20.00, 21.00, 20.00, 22.00, 21.00, 22.00, 19.00, 19.00, 22.00,
+             22.00, 18.00, 20.00, 23.00, 21.00, 19.00, 20.00, 23.00, 20.00,
+             21.00, 22.00, 22.00, 23.00, 26.00),
+    Foráneo = c("No", "No", "No", "No", "No", "No", "No", "No", "No", "No",
+                "No", "No", "No", "No", "No", "No", "Sí", "Sí", "No", "No",
+                "No", "No", "No", "No", "No", "No", "No", "No", "No", "No",
+                "No", "No", "No", "Sí", "Sí", "No", "No", "No", "No", "No",
+                "No", "No", "No", "No", "No", "No", "No", "Sí", "No", "Sí"),
+    Laboral = c("Desempleado", "Desempleado", "Desempleado", "Desempleado",
+                "Desempleado", "Desempleado", "Desempleado", "Desempleado",
+                "Desempleado", "Empleado", "Desempleado", "Desempleado",
+                "Desempleado", "Desempleado", "Desempleado", "Desempleado",
+                "Desempleado", "Desempleado", "Desempleado", "Desempleado",
+                "Desempleado", "Desempleado", "Desempleado", "Desempleado",
+                "Empleado", "Desempleado", "Desempleado", "Empleado",
+                "Desempleado", "Desempleado", "Desempleado", "Desempleado",
+                "Desempleado", "Desempleado", "Desempleado", "Empleado",
+                "Empleado", "Desempleado", "Desempleado", "Desempleado",
+                "Desempleado", "Desempleado", "Desempleado", "Empleado",
+                "Desempleado", "Empleado", "Desempleado", "Empleado",
+                "Empleado", "Desempleado"),
+    Economía = c("Mala", "Regular", "Buena", "Regular", "Regular",
+                 "Regular", "Buena", "Buena", "Regular", "Regular",
+                 "Mala", "Mala", "Regular", "Buena", "Buena",
+                 "Buena", "Mala", "Regular", "Buena", "Regular",
+                 "Regular", "Buena", "Regular", "Mala", "Mala",
+                 "Regular", "Regular", "Regular", "Buena",
+                 "Regular", "Regular", "Regular", "Buena",
+                 "Mala", "Regular", "Regular", "Regular",
+                 "Regular", "Buena", "Regular", "Regular",
+                 "Buena", "Regular", "Buena", "Regular",
+                 "Regular", "Buena", "Regular", "Regular",
+                 "Mala"),
+    Estrés = c(95.00, 70.00, 90.00, 80.00, 70.00, 45.00, 45.00, 69.00,
+               95.00, 85.00, 80.00, 80.00, 55.00, 40.00, 60.00, 75.00,
+               95.00, 75.00, 40.00, 50.00, 70.00, 40.00, 35.00, 90.00,
+               95.00, 25.00, 40.00, 15.00, 35.00, 40.00, 85.00, 50.00,
+               25.00, 98.00, 80.00, 80.00, 70.00, 70.00, 65.00, 90.00,
+               85.00, 65.00, 55.00, 60.00, 50.00, 45.00, 70.00, 85.00,
+               50.00, 85.00),
+    Gasto = c(20.00, 20.00, 45.00, 20.00, 10.00, 0.00, 15.00, 15.00,
+              6.00, 30.00, 20.00, 10.00, 20.00, 5.00, 5.00, 40.00,
+              20.00, 15.00, 15.00, 20.00, 5.00, 15.00, 8.00, 15.00,
+              20.00, 45.00, 10.00, 30.00, 30.00, 12.00, 20.00, 25.00,
+              10.00, 40.00, 20.00, 10.00, 25.00, 25.00, 20.00, 40.00,
+              20.00, 5.00, 20.00, 10.00, 15.00, 25.00, 15.00, 40.00,
+              0.00, 30.00),
+    Deuda = c(1000.00, 500.00, 1000.00, 700.00, 300.00, 500.00, 600.00,
+              550.00, 870.00, 350.00, 600.00, 200.00, 40.00, 600.00,
+              100.00, 1000.00, 0.00, 400.00, 30.00, 300.00, 500.00,
+              300.00, 850.00, 200.00, 300.00, 400.00, 200.00, 300.00,
+              400.00, 400.00, 300.00, 20.00, 500.00, 200.00, 90.00,
+              0.00, 40.00, 0.00, 0.00, 700.00, 40.00, 1500.00, 500.00,
+              500.00, 300.00, 150.00, 400.00, 300.00, 700.00, 2500.00),
+    Ingreso = c(500.00, 1300.00, 2500.00, 1000.00, 1000.00, 600.00, 1000.00,
+                1000.00, 900.00, 1600.00, 1300.00, 700.00, 1200.00, 1000.00,
+                600.00, 1400.00, 500.00, 2000.00, 1000.00, 900.00, 500.00,
+                900.00, 900.00, 500.00, 650.00, 900.00, 600.00, 800.00,
+                560.00, 700.00, 500.00, 250.00, 900.00, 400.00, 120.00,
+                700.00, 130.00, 800.00, 500.00, 700.00, 1500.00, 2000.00,
+                500.00, 800.00, 800.00, 950.00, 800.00, 350.00, 2000.00,
+                3000.00),
+    Horas = c(16.00, 12.00, 15.00, 14.00, 10.00, 9.00, 8.00, 11.00,
+              12.00, 14.00, 13.00, 10.00, 8.00, 10.00, 14.00, 16.00,
+              13.00, 7.00, 9.00, 10.00, 8.00, 7.00, 15.00, 14.00,
+              7.00, 8.00, 5.00, 8.00, 8.00, 15.00, 10.00, 7.00,
+              17.00, 13.00, 12.00, 11.00, 10.00, 9.00, 15.00, 15.00,
+              13.00, 10.00, 11.00, 16.00, 12.00, 12.00, 14.00, 15.00,
+              15.00, 16.00),
+    Promedio = c(7.00, 7.00, 6.00, 6.50, 8.00, 8.50, 8.50, 8.40,
+                 6.00, 7.00, 7.00, 7.50, 8.00, 8.00, 8.00, 6.40,
+                 6.50, 6.50, 7.00, 7.80, 8.00, 8.50, 8.70, 6.00,
+                 6.50, 8.00, 8.00, 9.00, 9.00, 9.00, 6.50, 7.50,
+                 8.00, 6.00, 7.00, 7.20, 7.28, 6.45, 7.50, 6.50,
+                 7.00, 7.00, 8.00, 8.50, 7.00, 8.80, 7.80, 7.00,
+                 8.00, 6.00),
+    Materias = c(7.00, 5.00, 5.00, 5.00, 4.00, 4.00, 5.00, 4.00,
+                 7.00, 5.00, 6.00, 8.00, 4.00, 4.00, 5.00, 5.00,
+                 5.00, 5.00, 3.00, 5.00, 4.00, 3.00, 3.00, 6.00,
+                 6.00, 4.00, 3.00, 3.00, 5.00, 3.00, 6.00, 4.00,
+                 4.00, 6.00, 5.00, 6.00, 4.00, 4.00, 4.00, 5.00,
+                 4.00, 5.00, 4.00, 3.00, 5.00, 8.00, 3.00, 5.00,
+                 7.00, 6.00),
+    Dificultad = c("Algo fácil", "Algo difícil", "Algo difícil", "Algo difícil",
+                  "Normal", "Normal", "Normal", "Algo fácil", "Algo difícil",
+                  "Normal", "Algo difícil", "Normal", "Normal", "Normal",
+                  "Algo fácil", "Algo difícil", "Difícil", "Difícil", "Algo difícil",
+                  "Normal", "Normal", "Algo fácil", "Algo fácil", "Difícil",
+                  "Difícil", "Normal", "Algo fácil", "Difícil", "Normal",
+                  "Normal", "Algo difícil", "Normal", "Algo fácil", "Algo difícil",
+                  "Algo difícil", "Difícil", "Algo difícil", "Normal", "Algo difícil",
+                  "Algo difícil", "Algo difícil", "Normal", "Algo difícil",
+                  "Algo fácil", "Algo difícil", "Algo fácil", "Algo difícil",
+                  "Algo difícil", "Normal", "Algo difícil")
+  )
 
 #####################################################################################
 
@@ -708,7 +708,8 @@ boxplot(Materias,
 ##################################################################################################################
 
 # VARIBLES CUALITATIVAS
-#Al ser variables cuantitativas, creamos un Plot de diagrama de barras de cada variable Cualitativa para mejor lectura
+#Al ser variables Cualitativas, creamos un Plot de diagrama de barras de cada variable 
+#Cualitativa para mejor lectura de los datos
 
 #### VARIABLE ES PERSONA FORÁNEA
 
@@ -772,7 +773,8 @@ barplot(f_absoluta,
 
 #### MATRIZ DE COVARIANZA & CORRELACIÓN
 
-#Juntamos todos los datos cuantitativos en un DataFrame para hacer
+#Juntamos todos los datos cuantitativos en un DataFrame para hacer la matriz
+#de covarianza y correlación
 datos <- data.frame(
   Edad = Edad,
   Estres = Estres,
@@ -788,26 +790,31 @@ datos <- data.frame(
 
 matriz_cov <- cov(datos)
 
-#Se imprime la matriz de covarianza
+#Se imprime la matriz de covarianza por consola
 print(matriz_cov)
+
 
 
 # MATRIZ DE CORRELACIÓN
 
 matriz_cor <- cor(datos)
 
-#Se imprime la matriz de correlación
+#Se imprime la matriz de correlación por consola
 print(matriz_cor)
+
+
 
 # MATRIZ GRÁFICA DE CORRELACIÓN
 
-#Plot para la matriz de correlación
+#matriz de correlación en PLOTS
 corrplot(matriz_cor, method = "circle", addCoef.col = "black",)
 
-#Matriz correlación con gráficos de disperción
+#Matriz correlación con gráficos de disperción en PLOTS
 pairs(datos)
 
-####
+
+
+#################################################################################################
 
 # VARIABLES CUALITATIVAS
 
@@ -867,8 +874,10 @@ muestra <- length(Estres)
 alpha <- 0.05
 zalpha <- abs(qnorm(alpha/2))
 
+
 #Realizaremos intervalos de confianza para las 3 variables seleccionadas, tambien 
 #verificamos que la desviación estandar no sea mayor al 10% en cada variable
+#La comparación se hace contra el 10% de la media y el error estándar.
 
 
 # INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE ESTRÉS CON UN 0.05% DE SIGNIFICANCIA
@@ -923,6 +932,9 @@ print("Comparando con el 10% de la media, el error estándar al ser menor podemo
 
 ### PRUEBAS DE HIPÓTESIS
 
+#Escogimos un intervalo del 95% para todas las pruebas de hipótesis realizadas a continuación
+#entre las variables estrés, promedio y materias. 
+
 # PRUEBA DE HIPÓTESIS CON UNA MEDIA
 
 Estres <- Info[["Estrés"]]
@@ -934,64 +946,67 @@ z_critical <- abs(qnorm(alpha)) # Valor crítico para todas las hipótesis, con 
 
 # ---- MEDIA DE LA VARIABLE ESTRÉS
 
-# h0 = miu <= 55 (hipótesis nula: miu menor a 55)
-# ha = miu > 55 (hipótesis alternativa: miu mayor o igual a 55)
+#Intentamos probar que la media del estres es mayor o igual a 55, asignamos h0 y ha
+# h0 = miu < 55 (hipótesis nula: miu menor a 55)
+# ha = miu >= 55 (hipótesis alternativa: miu mayor o igual a 55)
 
 miu0E <- 55
-xbarE <- mean(Estres)
-sdE <- sd(Estres)
+xbarE <- mean(Estres) #media
+sdE <- sd(Estres) #desviacion estandar
 
 # Estadístico de prueba
-z_statE = (xbarE - miu0E)/(sdE/sqrt(muestra))
+z_statE = (xbarE - miu0E)/(sdE/sqrt(muestra)) #estadistico de prueba
 
 # Gráfica
 x <- seq(-5, 5, length=1000)
-y <- dnorm(x)
+y <- dnorm(x) #gráfica normal
 
 #Tabla de datos
 datos <- data.frame(x, y)
 
 ggplot(datos, aes(x, y)) +
   geom_line() +
-  geom_area(data = subset(datos, x > z_critical), fill = "red", alpha = 0.5) +
-  geom_vline(xintercept = z_critical, linetype = "dashed") +
-  geom_vline(xintercept = z_statE, color = "blue") +
+  geom_area(data = subset(datos, x > z_critical), fill = "red", alpha = 0.5) + #zona de rechazo
+  geom_vline(xintercept = z_critical, linetype = "dashed") + #Zcrítico
+  geom_vline(xintercept = z_statE, color = "blue") + #Zestadístico
   labs(title = "Prueba de Hipótesis para una Media (Estrés)", x = "Estadístico Z", y = "Densidad") +
-  annotate("text", x = z_statE, y = -0.02, label = paste("Z =", round(z_statE, 2)), color = "blue")
+  annotate("text", x = z_statE, y = -0.02, label = paste("Z =", round(z_statE, 2)), color = "blue") 
 
 
 # ---- MEDIA DE LA VARIABLE PROMEDIO
 
+#Intentamos probar que es una que la media del promedio es menor a 7, asignamos h0 y ha
 # h0 = miu >= 7 (hipótesis nula: miu mayor o igual a 7)
 # ha = miu < 7 (hipótesis alternativa: miu menor a 7)
 
 miu0P <- 7
-xbarP <- mean(Promedio)
-sdP <- sd(Promedio)
+xbarP <- mean(Promedio) #media
+sdP <- sd(Promedio) #desviación
 
 # Estadístico de prueba
-z_statP = (xbarP - miu0P)/(sdP/sqrt(muestra))
+z_statP = (xbarP - miu0P)/(sdP/sqrt(muestra)) #Zestadístico
 
 # Gráfica
 x <- seq(-5, 5, length=1000)
-y <- dnorm(x)
+y <- dnorm(x) 
 
 #Tabla de datos
 datos <- data.frame(x, y)
 
 ggplot(datos, aes(x, y)) +
   geom_line() +
-  geom_area(data = subset(datos, x > z_critical), fill = "red", alpha = 0.5) +
-  geom_vline(xintercept = z_critical, linetype = "dashed") +
-  geom_vline(xintercept = z_statP, color = "blue") +
+  geom_area(data = subset(datos, x > z_critical), fill = "red", alpha = 0.5) + #zona de rechazo
+  geom_vline(xintercept = z_critical, linetype = "dashed") + #línea Zcrítico
+  geom_vline(xintercept = z_statP, color = "blue") + #Zestadístico
   labs(title = "Prueba de Hipótesis para una Media (Promedio)", x = "Estadístico Z", y = "Densidad") +
-  annotate("text", x = z_statP, y = -0.02, label = paste("Z =", round(z_statP, 2)), color = "blue")
+  annotate("text", x = z_statP, y = -0.02, label = paste("Z =", round(z_statP, 2)), color = "blue") #labels
 
 
 # ---- MEDIA DE LA VARIABLE MATERIAS
 
-# h0 = miu <= 3 (hipótesis nula: miu menor a 4)
-# ha = miu > 3 (hipótesis alternativa: miu mayor o igual a 4)
+#Queremos probar que la media de materias es mayor o igual a 4, asignamos h0 y ha
+# h0 = miu < 4 (hipótesis nula: miu menor a 4)
+# ha = miu >= 4 (hipótesis alternativa: miu mayor o igual a 4)
 
 miu0M <- 3
 xbarM <- mean(Materias)
