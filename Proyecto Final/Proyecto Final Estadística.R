@@ -830,6 +830,12 @@ datos <- data.frame(
 boxplot(Estres ~ Foraneo, data=datos, main="Diagrama de Cajas de Estrés por Condición de Foráneo",
         xlab="Es Foráneo", ylab="Estrés", col=c("skyblue", "lightgreen"))
 
+boxplot(Ingreso ~ Foraneo, data=datos, main="Diagrama de Cajas de Ingreso por Condición de Foráneo",
+        xlab="Es Foráneo", ylab="Ingreso", col=c("skyblue", "lightgreen"))
+
+boxplot(Deuda ~ Foraneo, data=datos, main="Diagrama de Cajas de Deuda por Condición de Foráneo",
+        xlab="Es Foráneo", ylab="Deuda", col=c("skyblue", "lightgreen"))
+
 boxplot(Estres ~ Laboral, data=datos, main="Diagrama de Cajas de Estrés por Situación Laboral",
         xlab="Situación Laboral", ylab="Estrés", col=c("skyblue", "lightgreen"))
 
@@ -928,8 +934,8 @@ z_critical <- abs(qnorm(alpha)) # Valor crítico para todas las hipótesis, con 
 
 # ---- MEDIA DE LA VARIABLE ESTRÉS
 
-# h0 = miu < 55 (hipótesis nula: miu menor a 55)
-# ha = miu >= 55 (hipótesis alternativa: miu mayor o igual a 55)
+# h0 = miu <= 55 (hipótesis nula: miu menor a 55)
+# ha = miu > 55 (hipótesis alternativa: miu mayor o igual a 55)
 
 miu0E <- 55
 xbarE <- mean(Estres)
@@ -984,10 +990,10 @@ ggplot(datos, aes(x, y)) +
 
 # ---- MEDIA DE LA VARIABLE MATERIAS
 
-# h0 = miu < 4 (hipótesis nula: miu menor a 4)
-# ha = miu >= 4 (hipótesis alternativa: miu mayor o igual a 4)
+# h0 = miu <= 3 (hipótesis nula: miu menor a 4)
+# ha = miu > 3 (hipótesis alternativa: miu mayor o igual a 4)
 
-miu0M <- 4
+miu0M <- 3
 xbarM <- mean(Materias)
 sdM <- sd(Materias)
 
@@ -995,7 +1001,7 @@ sdM <- sd(Materias)
 z_statM = (xbarM - miu0M)/(sdM/sqrt(muestra))
 
 # Gráfica
-x <- seq(-5, 5, length=1000)
+x <- seq(-10, 10, length=1000)
 y <- dnorm(x)
 
 #Tabla de datos
@@ -1014,6 +1020,8 @@ ggplot(datos, aes(x, y)) +
 # PRUEBAS JI-CUADRADO
 
 # PRUEBA DE INDEPENDENCIA JI-CUADRADO PARA VARIABLES CATEGÓRICAS
+
+#Tomamos un nivel de significancia del 0.05 para la prueba.
 
 tabla <- data.frame(
   Dificultad = Info[["Dificultad"]],
