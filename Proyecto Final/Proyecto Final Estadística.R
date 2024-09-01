@@ -995,7 +995,7 @@ print(shapE) #imprimimos por consola S
 df <- data.frame(Estres = Estres)
 
 #La prueba de Kolmogorov indica que si se ajustan a una normal 
-#la prueba de Shapiro indica que los datos no son normales :(
+#la prueba de Shapiro indica que los datos no se ajustan a una normal :(
 
 #Plot de histograma de la variable Estrés
 ggplot(df, aes(x = Estres)) +
@@ -1017,7 +1017,7 @@ print(ksP) #imprimimos por consola KS
 print(shapP) #imprimimos por consola S
 
 #La prueba de Kolmogorov indica que si se ajustan a una normal 
-#la prueba de Shapiro indica que los datos no son normales :(
+#la prueba de Shapiro indica que los datos no se ajustan a una normal :(
 
 df <- data.frame(Promedio = Promedio)
 
@@ -1042,7 +1042,7 @@ print(shapM) #imprimimos por consola S
 df <- data.frame(Materias = Materias)
 
 #La prueba de Kolmogorov indica que si se ajustan a una normal (por muy poco)
-#la prueba de Shapiro indica que los datos no son normales :(
+#la prueba de Shapiro indica que los datos no se ajustan a una normal :(
 
 #Plot de histograma de la variable Materias
 ggplot(df, aes(x = Materias)) +
