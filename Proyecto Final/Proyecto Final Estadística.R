@@ -1,3 +1,4 @@
+#### RUTAS ####
 #getwd()
 #setwd("C:/Users/Kathy/Documents/Kathy/Estadistica/Proyecto Final")
 #setwd("C:/Users/Kathy/Documents/GitHub/ESTADISTICA-PROYECTO/Proyecto Final")
@@ -7,6 +8,7 @@
 # Info <- read_excel("Info/Info.xlsx")
 # View(Info)
 
+#### PAQUETES####
 # install.packages("e1071") # Para sesgo y curtosis
 # install.packages("knitr") # Para gráfico
 # install.packages("kableExtra")
@@ -15,7 +17,7 @@
 # install.packages("dplyr")
 # install.packages("corrplot")
 # install.packages("stats")
-
+#### LIBRERIAS####
 # Librerías necesarias para el código.
   library(e1071)
   library(knitr)
@@ -25,13 +27,14 @@
   library(dplyr)
   library(corrplot)
   library(stats)
-  
-  # !!!!!!!!!!!!!!!!!!!! ADVERTENCIA !!!!!!!!!!!!!!!!!!!!!
+
+#### ADVERTENCIA####
   # Si no se puede acceder al excel para acceder a él como un data set por problemas con la ruta relativa (Por alguna razón
   # a mi y mi compañero nos daba problemas con la ruta y teníamos que settear la ruta manualmente para que funcione), puede
   # usar el data frame de abajo y funcionará de igual manera. Son los mismos datos que están en el excel de esta carpeta.
   # Puede descomentarlos seleccionando todo el data frame y pulsando la combinación de teclas: Ctrl + Shift + C.
   
+#### DataFrame en caso de que no funcione la ruta####
   Info <- data.frame(
     Edad = c(21.00, 20.00, 22.00, 22.00, 22.00, 19.00, 20.00, 20.00, 23.00,
              19.00, 20.00, 21.00, 20.00, 21.00, 23.00, 18.00, 19.00, 19.00,
@@ -132,10 +135,11 @@
                   "Algo difícil", "Normal", "Algo difícil")
   )
 
-#####################################################################################
-
+  
+########################################################################################
+#### ¡¡¡¡ANÁLISIS UNIVARIANTE!!!! ####
 # ESTADÍSTICA DESCRIPTIVA UNIVARIANTE
-# VARIABLES CUANTITATIVAS
+#### -VARIABLE CUANTITATIVAS- ####
 
 #Se calcula media, mediana, desviacion, q1, q3, curtosis, sesgo, minimo, maximo para 
 #cada dato estadistico cuantitativo de nuestra encuenta para despues hacer una pequeña 
@@ -143,7 +147,8 @@
 #tabla de frecuencia para datos agrupados, terminando con graficos con un histograma y un 
 #diagrama de cajas, que creemos que son los que mejor describen las variables.
 
-#### VARIABLE EDAD
+
+#### VARIABLE EDAD ####
 
 #Asignar a la variable Edad la columna Edad del DataFrame
 Edad <- Info[["Edad"]]
@@ -215,7 +220,7 @@ boxplot(Edad,
         col = "white",             
         border = "black")     
 
-#### VARIABLE PORCENTAJE DE ESTRÉS PROMEDIO SEMANAL
+#### VARIABLE PORCENTAJE DE ESTRÉS PROMEDIO SEMANAL ####
 
 Estres <- Info[["Estrés"]]
 
@@ -285,7 +290,7 @@ boxplot(Estres,
         col = "white",             
         border = "black")     
 
-#### VARIABLE GASTO SEMANAL UNIVERSITARIO
+#### VARIABLE GASTO SEMANAL UNIVERSITARIO ####
 
 Gasto <- Info[["Gasto"]]
 
@@ -355,7 +360,7 @@ boxplot(Gasto,
         col = "white",             
         border = "black")     
 
-#### VARIABLE DEUDAS MENSUALES DEL HOGAR
+#### VARIABLE DEUDAS MENSUALES DEL HOGAR ####
 
 Deuda <- Info[["Deuda"]]
 
@@ -425,7 +430,7 @@ boxplot(Deuda,
         col = "white",             
         border = "black")     
 
-#### VARIABLE INGRESOs MENSUALES DEL HOGAR
+#### VARIABLE INGRESOs MENSUALES DEL HOGAR ####
 
 Ingreso <- Info[["Ingreso"]]
 
@@ -495,7 +500,7 @@ boxplot(Ingreso,
         col = "white",             
         border = "black")     
 
-#### VARIABLE HORAS DEDICADAS AL ESTUDIO DIARIAMENTE (SIN CONTAR LAS HORAS DE CLASE)
+#### VARIABLE HORAS DEDICADAS AL ESTUDIO DIARIAMENTE (SIN CONTAR LAS HORAS DE CLASE) ####
 
 Horas <- Info[["Horas"]]
 
@@ -565,7 +570,7 @@ boxplot(Horas,
         col = "white",             
         border = "black")     
 
-#### VARIABLE PROMEDIO OBTENIDO EN EL ÚLTIMO TÉRMINO
+#### VARIABLE PROMEDIO OBTENIDO EN EL ÚLTIMO TÉRMINO ####
 
 Promedio <- Info[["Promedio"]]
 
@@ -635,7 +640,7 @@ boxplot(Promedio,
         col = "white",             
         border = "black")     
 
-#### VARIABLE NÚMERO DE MATERIAS TOMADAS EN EL ÚLTIMO TÉRMINO
+#### VARIABLE NÚMERO DE MATERIAS TOMADAS EN EL ÚLTIMO TÉRMINO ####
 
 Materias <- Info[["Materias"]]
 
@@ -705,13 +710,11 @@ boxplot(Materias,
         col = "white",             
         border = "black")     
 
-##################################################################################################################
-
-# VARIBLES CUALITATIVAS
+#### -VARIBLES CUALITATIVAS- ####
 #Al ser variables Cualitativas, creamos un Plot de diagrama de barras de cada variable 
 #Cualitativa para mejor lectura de los datos
 
-#### VARIABLE ES PERSONA FORÁNEA
+#### VARIABLE ES PERSONA FORÁNEA ####
 
 Foraneo <- Info[["Foráneo"]]
 
@@ -724,7 +727,7 @@ barplot(f_absoluta,
         col = "gold",
         border = "black")
 
-#### VARIABLE SITUACIÓN LABORAL
+#### VARIABLE SITUACIÓN LABORAL ####
 
 Laboral <- Info[["Laboral"]]
 
@@ -737,7 +740,7 @@ barplot(f_absoluta,
         col = "gold",
         border = "black")
 
-#### VARIABLE CALIDAD DE ECONOMÍA
+#### VARIABLE CALIDAD DE ECONÓMICA ####
 
 Economia <- Info[["Economía"]]
 
@@ -750,7 +753,7 @@ barplot(f_absoluta,
         col = "gold",
         border = "black")
 
-#### VARIABLE DIFICULTAD PARA EQUILIBRAR LA VIDA PERSONAL Y LA ACADÉMICA
+#### VARIABLE DIFICULTAD PARA EQUILIBRAR LA VIDA PERSONAL Y LA ACADÉMICA ####
 
 Dificultad <- Info[["Dificultad"]]
 
@@ -764,14 +767,12 @@ barplot(f_absoluta,
         border = "black")
 
 
-#######################################################################################################################
-#######################################################################################################################
-
-
+#################################################################################################################
+#### ¡¡¡¡ANÁLISIS BIVARIANTE!!!! ####
 # ESTADÍSTICA DESCRIPTIVA BIVARIANTE O MULTIVARIANTE
-# VARIABLES CUANTITATIVAS
+#### -VARIABLES CUANTITATIVAS- ####
 
-#### MATRIZ DE COVARIANZA & CORRELACIÓN
+#### MATRIZ DE COVARIANZA & CORRELACIÓN ####
 
 #Juntamos todos los datos cuantitativos en un DataFrame para hacer la matriz
 #de covarianza y correlación
@@ -813,10 +814,7 @@ corrplot(matriz_cor, method = "circle", addCoef.col = "black",)
 pairs(datos)
 
 
-
-#################################################################################################
-
-# VARIABLES CUALITATIVAS
+#### -VARIABLES CUALITATIVAS- ####
 
 # GRÁFICOS SEGMENTADOS POR UNA VARIABLE CUALITATIVA
 
@@ -858,79 +856,9 @@ boxplot(Estres ~ Dificultad, data=datos, main="Diagrama de Cajas de Estrés por 
 boxplot(Promedio ~ Dificultad, data=datos, main="D. de Cajas de Promedio Obtenido en el Último Término por Dificultad para Equilibrar Vida Personal y Académica",
         xlab="Dificultad para Equilibrar la Vida Personal y la Académica", ylab="Promedio Obtenido en el Último Término", col=c("skyblue", "lightgreen"))
 
-###########################################################################################################################
-
-# ESTADÍSTICA INFERENCIAL
-
-### INTERVALOS DE CONFIANZA
-
-#Seleccionamos las variables de más interes para nuestra investigación 
-Estres <- Info[["Estrés"]]
-Promedio <- Info[["Promedio"]]
-Materias <- Info[["Materias"]]
-
-#Sacamos el tamaño de la muestra, el alpha y el Zalpha
-muestra <- length(Estres)
-alpha <- 0.05
-zalpha <- abs(qnorm(alpha/2))
-
-
-#Realizaremos intervalos de confianza para las 3 variables seleccionadas, tambien 
-#verificamos que la desviación estandar no sea mayor al 10% en cada variable
-#La comparación se hace contra el 10% de la media y el error estándar.
-
-
-# INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE ESTRÉS CON UN 0.05% DE SIGNIFICANCIA
-
-mediaE <- mean(Estres)
-sdE <- sd(Estres)
-
-linfEstres <- mediaE - ((sdE/sqrt(muestra))*zalpha)
-lsupEstres <- mediaE + ((sdE/sqrt(muestra))*zalpha)
-
-errorE <- (sdE/sqrt(muestra))*zalpha
-compE <- (mediaE*0.10)
-
-print(paste0("Intervalo de confianza para Estrés: [",linfEstres,", ",lsupEstres,"]"))
-print(paste0("Error estándar de Estrés : ", errorE))
-print(paste("10% de la media de Estrés: ",compE))
-print("Comparando con el 10% de la media, el error estándar al ser menor podemos decir que tiene un error aceptable.")
-
-# INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE PROMEDIO CON UN 0.05% DE SIGNIFICANCIA
-
-mediaP <- mean(Promedio)
-sdP <- sd(Promedio)
-
-linfPromedio <- mediaP - ((sdP/sqrt(muestra))*zalpha)
-lsupPromedio <- mediaP + ((sdP/sqrt(muestra))*zalpha)
-
-errorP <- (sdP/sqrt(muestra))*zalpha
-compP <- (mediaP*0.10)
-
-print(paste0("Intervalo de confianza para Promedio: [",linfPromedio,", ",lsupPromedio,"]"))
-print(paste0("Error estándar de Promedio : ", errorP))
-print(paste("10% de la media de Estrés: ",compP))
-print("Comparando con el 10% de la media, el error estándar al ser menor podemos decir que tiene un error aceptable.")
-
-# INTERVALO DE CONFIANZA PARA LA MEDIA DE LA VARIABLE MATERIAS CON UN 0.05% DE SIGNIFICANCIA
-
-mediaM <- mean(Materias)
-sdM <- sd(Materias)
-
-linfMaterias <- mediaM - ((sdM/sqrt(muestra))*zalpha)
-lsupMaterias <- mediaM + ((sdM/sqrt(muestra))*zalpha)
-
-errorM <- (sdM/sqrt(muestra))*zalpha
-compM <- (mediaM*0.10)
-
-print(paste0("Intervalo de confianza para Materias: [",linfMaterias,", ",lsupMaterias,"]"))
-print(paste0("Error estándar de Materias : ", errorM))
-print(paste("10% de la media de Estrés: ",compM))
-print("Comparando con el 10% de la media, el error estándar al ser menor podemos decir que tiene un error aceptable.")
-
 #################################################################################################################
-
-### PRUEBAS DE HIPÓTESIS
+#### ¡¡¡¡ESTADÍSTICA INFERENCIAL!!!! ####
+#### -PRUEBAS DE HIPÓTESIS- ####
 
 #Escogimos un intervalo del 95% para todas las pruebas de hipótesis realizadas a continuación
 #entre las variables estrés, promedio y materias. 
@@ -944,7 +872,7 @@ muestra <- length(Estres) # tamaño de muestra para todas las variables
 alpha <- 0.05
 z_critical <- abs(qnorm(alpha)) # Valor crítico para todas las hipótesis, con un un nivel de significancia del 0.05
 
-# ---- MEDIA DE LA VARIABLE ESTRÉS
+#### MEDIA DE LA VARIABLE ESTRÉS ####
 
 #Intentamos probar que la media del estres es mayor a 55, asignamos h0 y ha
 # h0 = miu <= 55 (hipótesis nula: miu menor a 55)
@@ -971,9 +899,10 @@ ggplot(datos, aes(x, y)) +
   geom_vline(xintercept = z_statE, color = "blue") + #Zestadístico
   labs(title = "Prueba de Hipótesis para una Media (Estrés)", x = "Estadístico Z", y = "Densidad") +
   annotate("text", x = z_statE, y = -0.02, label = paste("Z =", round(z_statE, 2)), color = "blue") 
+#Rechazamos h0, porque el Zestadístico es mayor que el Zcrítico, es decir, la media del estrés es mayor a 55.
 
 
-# ---- MEDIA DE LA VARIABLE PROMEDIO
+#### MEDIA DE LA VARIABLE PROMEDIO ####
 
 #Intentamos probar que es una que la media del promedio es menor a 7, asignamos h0 y ha
 # h0 = miu >= 7 (hipótesis nula: miu mayor o igual a 7)
@@ -1000,9 +929,9 @@ ggplot(datos, aes(x, y)) +
   geom_vline(xintercept = z_statP, color = "blue") + #Zestadístico
   labs(title = "Prueba de Hipótesis para una Media (Promedio)", x = "Estadístico Z", y = "Densidad") +
   annotate("text", x = z_statP, y = -0.02, label = paste("Z =", round(z_statP, 2)), color = "blue") #labels
+#Rechazamos h0, porque el Zestadístico es mayor que el Zcrítico, es decir, la media del promedio es menor a 7.
 
-
-# ---- MEDIA DE LA VARIABLE MATERIAS
+#### MEDIA DE LA VARIABLE MATERIAS #### 
 
 #Queremos probar que la media de materias es mayor a 3, asignamos h0 y ha
 # h0 = miu <= 3 (hipótesis nula: miu menor o igual a 3)
@@ -1013,7 +942,7 @@ xbarM <- mean(Materias)
 sdM <- sd(Materias)
 
 # Estadístico de prueba
-z_statM = (xbarM - miu0M)/(sdM/sqrt(muestra))
+z_statM = (xbarM - miu0M)/(sdM/sqrt(muestra))#Zestadístico
 
 # Gráfica
 x <- seq(-10, 10, length=1000)
@@ -1024,20 +953,20 @@ datos <- data.frame(x, y)
 
 ggplot(datos, aes(x, y)) +
   geom_line() +
-  geom_area(data = subset(datos, x > z_critical), fill = "red", alpha = 0.5) +
-  geom_vline(xintercept = z_critical, linetype = "dashed") +
-  geom_vline(xintercept = z_statM, color = "blue") +
+  geom_area(data = subset(datos, x > z_critical), fill = "red", alpha = 0.5) +#zona de rechazo
+  geom_vline(xintercept = z_critical, linetype = "dashed") + #línea Zcrítico
+  geom_vline(xintercept = z_statM, color = "blue") + #Zestadístico
   labs(title = "Prueba de Hipótesis para una Media (Materias)", x = "Estadístico Z", y = "Densidad") +
-  annotate("text", x = z_statM, y = -0.02, label = paste("Z =", round(z_statM, 2)), color = "blue")
+  annotate("text", x = z_statM, y = -0.02, label = paste("Z =", round(z_statM, 2)), color = "blue") #labels
+#Rechazamos h0, porque el Zestadístico es mayor que el Zcrítico, es decir, la media de materias es mayor a 3.
 
 
-
-# PRUEBAS JI-CUADRADO
-
-# PRUEBA DE INDEPENDENCIA JI-CUADRADO PARA VARIABLES CATEGÓRICAS
-
+#### -PRUEBAS JI-CUADRADO- ####
+#### --PRUEBA DE INDEPENDENCIA JI-CUADRADO PARA VARIABLES CATEGÓRICAS-- ####
+#### INDEPENDENCIA ENTRE LA DIFICULTAD Y LA ECONOMÍA ####
 #Tomamos un nivel de significancia del 0.05 para la prueba.
-
+#ho = Dificultad y Economía son independientes.
+#ha = Dificultad y Economía son dependientes.
 tabla <- data.frame(
   Dificultad = Info[["Dificultad"]],
   Economia = Info[["Economía"]]
@@ -1047,23 +976,28 @@ tabla_frec <- table(tabla[["Dificultad"]], tabla[["Economia"]])
 ji <- chisq.test(tabla_frec)
 
 print(ji)
+#El p estadístico es mayor al valor de p alfa (0.05) por lo que NO RECHAZAMOS
+#la hipotesis nula, es decir, son independientes.
 
+#### --PRUEBA DE KOLMOGOROV Y SHAPIRO PARA VARIABLES CUANTITATIVAS-- ####
 # PRUEBA DE KOLMOGOROV-SMIRNOV PARA SABER SI NUESTRAS VARIABLES SIGUEN UNA DISTRIBUCIÓN NORMAL
-
 Estres <- Info[["Estrés"]]
 Promedio <- Info[["Promedio"]] 
 Materias <- Info[["Materias"]] 
 
-# VARIABLE ESTRÉS
-
-ksE <- ks.test(Estres, "pnorm", mean = mean(Estres), sd = sd(Estres))
+#### VARIABLE ESTRÉS ####
+ksE <- ks.test(Estres, "pnorm", mean = mean(Estres), sd = sd(Estres)) #K para una distribución normal
 shapE <- shapiro.test(Estres)
 
-print(ksE)
-print(shapE)
+print(ksE) #imprimimos por consola KS
+print(shapE) #imprimimos por consola S
 
 df <- data.frame(Estres = Estres)
 
+#La prueba de Kolmogorov indica que si se ajustan a una normal 
+#la prueba de Shapiro indica que los datos no son normales :(
+
+#Plot de histograma de la variable Estrés
 ggplot(df, aes(x = Estres)) +
   geom_histogram(aes(y = ..density..), bins = 30, fill = "lightblue", color = "black") +
   stat_function(fun = dnorm, args = list(mean = mean(Estres), sd = sd(Estres)),
@@ -1073,16 +1007,21 @@ ggplot(df, aes(x = Estres)) +
        y = "Densidad") +
   theme_minimal()
 
-# VARIABLE PROMEDIO
 
-ksP <- ks.test(Promedio, "pnorm", mean = mean(Promedio), sd = sd(Promedio))
+#### VARIABLE PROMEDIO ####
+
+ksP <- ks.test(Promedio, "pnorm", mean = mean(Promedio), sd = sd(Promedio))#K para una distribución normal
 shapP <- shapiro.test(Promedio)
 
-print(ksP)
-print(shapP)
+print(ksP) #imprimimos por consola KS
+print(shapP) #imprimimos por consola S
+
+#La prueba de Kolmogorov indica que si se ajustan a una normal 
+#la prueba de Shapiro indica que los datos no son normales :(
 
 df <- data.frame(Promedio = Promedio)
 
+#Plot de histograma de la variable Promedio
 ggplot(df, aes(x = Promedio)) +
   geom_histogram(aes(y = ..density..), bins = 30, fill = "lightblue", color = "black") +
   stat_function(fun = dnorm, args = list(mean = mean(Promedio), sd = sd(Promedio)),
@@ -1092,16 +1031,20 @@ ggplot(df, aes(x = Promedio)) +
        y = "Densidad") +
   theme_minimal()
 
-# VARIABLE MATERIAS
+#### VARIABLE MATERIAS ####
 
-ksM <- ks.test(Materias, "pnorm", mean = mean(Materias), sd = sd(Materias))
+ksM <- ks.test(Materias, "pnorm", mean = mean(Materias), sd = sd(Materias))#K para una distribución normal
 shapM <- shapiro.test(Materias)
 
-print(ksM)
-print(shapM)
+print(ksM) #imprimimos por consola KS
+print(shapM) #imprimimos por consola S
 
 df <- data.frame(Materias = Materias)
 
+#La prueba de Kolmogorov indica que si se ajustan a una normal (por muy poco)
+#la prueba de Shapiro indica que los datos no son normales :(
+
+#Plot de histograma de la variable Materias
 ggplot(df, aes(x = Materias)) +
   geom_histogram(aes(y = ..density..), bins = 30, fill = "lightblue", color = "black") +
   stat_function(fun = dnorm, args = list(mean = mean(Materias), sd = sd(Materias)),
@@ -1111,15 +1054,16 @@ ggplot(df, aes(x = Materias)) +
        y = "Densidad") +
   theme_minimal()
 
-###
 
-# REGRESIÓN LINEAL
+##############################################################################################################
+#### REGRESIÓN LINEAL ####
 
-modeloEstProm <- lm(Estrés ~ Promedio, data = Info)
+modeloEstProm <- lm(Estrés ~ Promedio, data = Info) #Regresión lineal
 
-summary(modeloEstProm)
+summary(modeloEstProm) #Resumen de la regresión lineal
 
-ggplot(Info, aes(x=Estrés, y=Promedio)) + 
+ggplot(Info, aes(x=Estrés, y=Promedio)) + #Plot de la regresión lineal
   geom_point() +
   geom_smooth(method='lm', formula=y~x, se=FALSE, col='dodgerblue1') +
   theme_light()
+#como podemos ver en el summary, vemos que que la regresión lineal predice en un 64% a los datos.
