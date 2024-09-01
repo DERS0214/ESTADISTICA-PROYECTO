@@ -500,7 +500,7 @@ boxplot(Ingreso,
         col = "white",             
         border = "black")     
 
-#### VARIABLE HORAS DEDICADAS AL ESTUDIO DIARIAMENTE (SIN CONTAR LAS HORAS DE CLASE) ####
+#### VARIABLE HORAS DEDICADAS AL ESTUDIO SEMANALMENTE  (SIN CONTAR LAS HORAS DE CLASE) ####
 
 Horas <- Info[["Horas"]]
 
@@ -528,7 +528,7 @@ tabla_estadisticos <- data.frame(
 
 print(tabla_estadisticos)
 
-kable_styling(add_header_above(kable(tabla_estadisticos),c("Horas Dedicadas al Estudio Diariamente"=9)), bootstrap_options = c("striped", "hover", "condensed"))
+kable_styling(add_header_above(kable(tabla_estadisticos),c("Horas Dedicadas al Estudio Semanalmente"=9)), bootstrap_options = c("striped", "hover", "condensed"))
 
 
 intervalos <- cut(Horas, breaks=seq(min(Horas), max(Horas) + 3, by = 3), right = FALSE)
@@ -557,16 +557,16 @@ tabla_frecuencias <- data.frame(
 print(tabla_frecuencias)
 
 hist(Horas, 
-     main = "Histograma de Horas Diarias de Estudio",
-     xlab = "Horas Diarias de Estudio",       
+     main = "Histograma de Horas Semanales de Estudio",
+     xlab = "Horas Semanales de Estudio",       
      ylab = "Frecuencia",       
      col = "lightblue",                
      border = "black")     
 
 boxplot(Horas,
         horizontal = TRUE,
-        main = "Diagrama de Cajas de Horas Diarias de Estudio",
-        ylab = "Horas Diarias de Estudio",                       
+        main = "Diagrama de Cajas de Horas Semanales de Estudio",
+        ylab = "Horas Semanales de Estudio",                       
         col = "white",             
         border = "black")     
 
