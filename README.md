@@ -1,8 +1,4 @@
 
-
-
-Basándome en el análisis de tu repositorio, aquí tienes una propuesta completa para el README en español:
-
 # README - Proyecto Final de Estadística
 
 ## Descripción del Proyecto
